@@ -1,38 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500;700&display=swap");
+
+body {
+  margin: 0;
+  font-family: "Poppins";
+}
+
 .App {
   text-align: center;
+  color: white;
+  background-color: #001220;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.welcome-screen {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  background-image: url("images/intro.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.homepage {
+  color: #000;
+  background-image: url("images/main.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+h1,
+h2,
+h5 {
+  margin: 0;
+}
+
+h2,
+h5 {
+  color: #fff;
+}
+
+.input-name {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 3px solid #fff;
+  color: #fff;
+  font-weight: 500;
+  text-align: center;
+  margin: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: left;
+  font-size: 0.8em;
+}
+
+@media screen and (min-width: 767px) {
+  table {
+    font-size: 1em;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+div.wrapper,
+div.wrapper::-webkit-scrollbar {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 38vh;
+  background-color: #fff;
+  border-radius: 8px;
+  margin: 0;
+}
+
+div.wrapper::-webkit-scrollbar {
+  width: 0px;
+}
+
+div.intro {
+  padding: 0 0 20px 0;
+}
+
+input[type="checkbox"] {
+  accent-color: #fff;
+  cursor: pointer;
+}
+
+.delete-button {
+  margin: 0;
+  padding: 0;
+  width: 0.8em !important;
+  height: 0.8em !important;
+}
+
+.checkbox {
+  margin: 10px;
+}
+
+.checkbox-badge {
+  width: 23%;
+}
+
+td {
+  height: auto;
+  vertical-align: middle;
 }

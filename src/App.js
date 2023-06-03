@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import WelcomeScreen from "./components/WelcomeScreen";
+import HomePage from "./components/HomePage";
+import { Fade } from "@mui/material";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 function App() {
+  const [userName, setUserName] = useState("");
+  const [isIntro, setIsIntro] = useState(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Fade in={isIntro} timeout={2000}>
+        <div>
+          <WelcomeScreen
+            key="welcome"
+            setUserName={setUserName}
+            setIsIntro={setIsIntro}
+          />
+        </div>
+      </Fade>
+      <Fade in={!isIntro} timeout={2000}>
+        <div>
+          <HomePage key="home" userName={userName} />
+        </div>
+      </Fade>
     </div>
   );
 }
