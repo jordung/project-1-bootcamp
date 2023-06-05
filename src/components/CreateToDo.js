@@ -65,12 +65,12 @@ function CreateToDo({ setToDo, toDo }) {
           className="mb-2"
           type="date"
           placeholder="Due Date"
-          // min={todayDate}
+          min={todayDate}
           max="9999-12-31"
         />
       </FloatingLabel>
       <Button className="mb-2 w-100" variant="outline-light" type="submit">
-        Submit
+        Add To Do
       </Button>
     </Form>
   );
