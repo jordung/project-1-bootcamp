@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CreateToDo from "./CreateToDo";
 import ShowToDo from "./ShowToDo";
+import moment from "moment";
 
 function HomePage({ userName }) {
-  const [toDo, setToDo] = useState([]);
+  const [toDoList, setToDoList] = useState([]);
+  const [time, setTime] = useState(moment().format("DD/MM/YYYY, h:mm:ss a"));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(moment().format("DD/MM/YYYY, h:mm:ss a"));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="homepage">
@@ -13,8 +23,9 @@ function HomePage({ userName }) {
           <em>{userName}</em>
         </h2>
       </div>
-      <CreateToDo setToDo={setToDo} toDo={toDo} />
-      <ShowToDo setToDo={setToDo} toDo={toDo} />
+      <p>{time}</p>
+      <CreateToDo setToDoList={setToDoList} toDoList={toDoList} />
+      <ShowToDo setToDoList={setToDoList} toDoList={toDoList} />
     </div>
   );
 }

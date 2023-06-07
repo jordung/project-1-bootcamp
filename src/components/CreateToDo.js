@@ -1,11 +1,15 @@
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 import { useRef, useState } from "react";
 import moment from "moment";
+import { v4 as uuidv4 } from "uuid";
 
-function CreateToDo({ setToDo, toDo }) {
-  const [itemName, setItemName] = useState("");
-  const [itemDueDate, setItemDueDate] = useState("");
-  const [counter, setCounter] = useState(0);
+function CreateToDo({ setToDoList, toDoList }) {
+  const [toDo, setToDo] = useState({
+    id: uuidv4(),
+    item: "",
+    dueDate: "",
+    complete: false,
+  });
 
   const todayDate = moment().format("YYYY-MM-DD");
 
@@ -17,59 +21,64 @@ function CreateToDo({ setToDo, toDo }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setToDo([
-      ...toDo,
-      {
-        id: counter,
-        item: itemName,
-        dueDate: itemDueDate,
-        complete: false,
-      },
-    ]);
+    setToDoList([...toDoList, toDo]);
+    setToDo({
+      id: uuidv4(),
+      item: "",
+      dueDate: "",
+      complete: false,
+    });
     handleReset();
-    setItemName("");
-    setItemDueDate("");
-    setCounter((counter) => counter + 1);
   };
 
   const handleItemChange = (event) => {
-    setItemName(event.target.value);
+    setToDo((prevState) => ({
+      ...prevState,
+      item: event.target.value,
+    }));
   };
 
   const handleDueDateChange = (event) => {
-    setItemDueDate(moment(event.target.value).format("DD/MM/YYYY"));
+    setToDo((prevState) => ({
+      ...prevState,
+      dueDate: event.target.value,
+    }));
   };
 
   return (
     <Form onSubmit={handleSubmit} className="w-75" ref={formRef}>
       <Form.Group className="mb-3" controlId="item">
         <FloatingLabel
-          className="mb-2"
-          value={itemName}
+          className="mb-2 form-field"
+          value={toDo.itemName}
           onChange={handleItemChange}
           name="item"
           label="What do you want to do today?"
         >
-          <Form.Control required type="text" />
+          <Form.Control className="form-field" required type="text" />
         </FloatingLabel>
       </Form.Group>
       <FloatingLabel
-        className="mb-2"
-        value={itemDueDate}
+        className="mb-2 form-field"
+        value={toDo.itemDueDate}
         onChange={handleDueDateChange}
         name="dueDate"
         label="Due date"
       >
         <Form.Control
           required
-          className="mb-2"
+          className="mb-2 form-field"
           type="date"
           placeholder="Due Date"
           min={todayDate}
           max="9999-12-31"
         />
       </FloatingLabel>
-      <Button className="mb-2 w-100" variant="outline-light" type="submit">
+      <Button
+        className="mb-2 w-100 form-field"
+        variant="outline-light"
+        type="submit"
+      >
         Add To Do
       </Button>
     </Form>

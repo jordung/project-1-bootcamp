@@ -53,6 +53,12 @@ h5 {
   color: #fff;
 }
 
+p {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
 .input-name {
   border: 0;
   outline: 0;
@@ -73,10 +79,8 @@ table {
   font-size: 0.8em;
 }
 
-@media screen and (min-width: 767px) {
-  table {
-    font-size: 1em;
-  }
+td {
+  height: auto;
 }
 
 div.wrapper,
@@ -94,7 +98,7 @@ div.wrapper::-webkit-scrollbar {
 }
 
 div.intro {
-  padding: 0 0 20px 0;
+  padding: 0 0 10px 0;
 }
 
 input[type="checkbox"] {
@@ -109,15 +113,32 @@ input[type="checkbox"] {
   height: 0.8em !important;
 }
 
-.checkbox {
-  margin: 10px;
+.modal-button {
+  width: 30%;
+  margin: 0 5px 10px 5px;
 }
 
-.checkbox-badge {
-  width: 23%;
+.modal-button-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-td {
-  height: auto;
-  vertical-align: middle;
+.form-field {
+  font-size: 0.9em;
+}
+
+@media screen and (min-width: 767px) {
+  table {
+    font-size: 1em;
+  }
+
+  .checkbox {
+    margin: 5px 5px;
+    padding: 0;
+  }
+
+  .form-field {
+    font-size: 1em;
+  }
 }
