@@ -7,7 +7,6 @@ import EditModal from "./EditModal";
 
 function ShowToDo({ setToDoList, toDoList }) {
   //TODO: add to local storage
-  //TODO: update CSS for table
   const todayDate = moment().format("YYYY-MM-DD");
   const [modalShow, setModalShow] = useState(false);
   const [editedToDo, setEditedToDo] = useState({
@@ -30,10 +29,12 @@ function ShowToDo({ setToDoList, toDoList }) {
     setToDoList(toDoList.filter((item) => item.id !== id));
   };
 
-  const handleEdit = (id) => {
+  const handleEdit = (item) => {
     setEditedToDo((prevState) => ({
       ...prevState,
-      id: id,
+      id: item.id,
+      item: item.item,
+      dueDate: item.dueDate,
     }));
     setModalShow(true);
     setToDoList(
@@ -52,10 +53,14 @@ function ShowToDo({ setToDoList, toDoList }) {
       <Table className="table">
         <thead>
           <tr>
-            <th scope="col"></th>
-            <th scope="col">Item</th>
-            <th scope="col">Due </th>
-            <th scope="col"></th>
+            <th className="table-checkbox" scope="col"></th>
+            <th className="table-content" scope="col">
+              Item
+            </th>
+            <th className="table-content" scope="col">
+              Due{" "}
+            </th>
+            <th className="table-buttons" scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -78,7 +83,7 @@ function ShowToDo({ setToDoList, toDoList }) {
             })
             .map((item) => (
               <tr key={item.id}>
-                <td className="checkbox-badge">
+                <td className="checkbox-badge table-checkbox">
                   <input
                     type="checkbox"
                     className="checkbox"
@@ -95,23 +100,27 @@ function ShowToDo({ setToDoList, toDoList }) {
                 </td>
                 <td
                   className={
-                    item.complete ? "text-decoration-line-through" : null
+                    item.complete
+                      ? "text-decoration-line-through table-content"
+                      : "table-content"
                   }
                 >
                   {item.item}
                 </td>
                 <td
                   className={
-                    item.complete ? "text-decoration-line-through" : null
+                    item.complete
+                      ? "text-decoration-line-through table-content"
+                      : "table-content"
                   }
                 >
                   {moment(item.dueDate).format("DD/MM/YYYY")}
                 </td>
-                <td>
+                <td className="table-buttons">
                   <Button variant="light" size="sm" className="px-1 p-0 m-0">
                     <ModeEditOutlineOutlinedIcon
                       className="delete-button"
-                      onClick={() => handleEdit(item.id)}
+                      onClick={() => handleEdit(item)}
                     />
                   </Button>
                   <Button variant="light" size="sm" className="px-1 p-0 m-0">

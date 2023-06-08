@@ -42,6 +42,10 @@ body {
   align-items: center;
 }
 
+.username {
+  cursor: pointer;
+}
+
 h1,
 h2,
 h5 {
@@ -75,12 +79,28 @@ table {
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  text-align: left;
   font-size: 0.8em;
+  table-layout: fixed;
 }
 
 td {
   height: auto;
+}
+
+.table-checkbox {
+  width: 20px;
+  vertical-align: middle;
+}
+
+.table-content {
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table-buttons {
+  width: 100px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 div.wrapper,
@@ -134,11 +154,15 @@ input[type="checkbox"] {
   }
 
   .checkbox {
-    margin: 5px 5px;
+    margin: 5px 10px;
     padding: 0;
   }
 
   .form-field {
     font-size: 1em;
+  }
+
+  .table-checkbox {
+    width: 50px;
   }
 }

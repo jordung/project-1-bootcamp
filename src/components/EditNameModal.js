@@ -1,30 +1,23 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FloatingLabel, Form } from "react-bootstrap";
-import moment from "moment";
 
-function EditModal({ show, onHide, editedToDo, setEditedToDo, handleEdit }) {
-  const todayDate = moment().format("YYYY-MM-DD");
-  //   console.log(editedToDo);
-
+function EditNameModal({
+  show,
+  onHide,
+  editedUserName,
+  setEditedUserName,
+  handleNameChange,
+  userName,
+}) {
   const handleSubmit = (event) => {
     event.preventDefault();
-    handleEdit(editedToDo.id);
+    handleNameChange(editedUserName);
     onHide();
   };
 
-  const handleItemChange = (event) => {
-    setEditedToDo((prevState) => ({
-      ...prevState,
-      item: event.target.value,
-    }));
-  };
-
-  const handleDueDateChange = (event) => {
-    setEditedToDo((prevState) => ({
-      ...prevState,
-      dueDate: event.target.value,
-    }));
+  const handleChange = (event) => {
+    setEditedUserName(event.target.value);
   };
 
   return (
@@ -36,40 +29,25 @@ function EditModal({ show, onHide, editedToDo, setEditedToDo, handleEdit }) {
       onEscapeKeyDown={onHide}
     >
       <Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">Edit Item</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Edit Name</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3 form-field" controlId="item">
             <FloatingLabel
-              onChange={handleItemChange}
+              onChange={handleChange}
               name="item"
-              label="Updated Task"
+              label="Update Name"
             >
               <Form.Control
                 className="form-field"
                 required
                 type="text"
-                defaultValue={editedToDo.item}
+                defaultValue={userName}
+                autoFocus
               />
             </FloatingLabel>
           </Form.Group>
-          <FloatingLabel
-            name="dueDate"
-            label="Updated Due date"
-            className="form-field"
-          >
-            <Form.Control
-              required
-              className="mb-2 form-field"
-              type="date"
-              placeholder="Due Date"
-              min={todayDate}
-              max="9999-12-31"
-              defaultValue={editedToDo.dueDate}
-              onChange={handleDueDateChange}
-            />
-          </FloatingLabel>
           <div className="modal-button-list">
             <Button
               className="modal-button form-field"
@@ -92,4 +70,4 @@ function EditModal({ show, onHide, editedToDo, setEditedToDo, handleEdit }) {
   );
 }
 
-export default EditModal;
+export default EditNameModal;
