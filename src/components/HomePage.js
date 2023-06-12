@@ -2,24 +2,29 @@ import { useState, useEffect } from "react";
 import CreateToDo from "./CreateToDo";
 import ShowToDo from "./ShowToDo";
 import moment from "moment";
-import EditNameModal from "./EditNameModal";
+import SettingsModal from "./SettingsModal";
+import { Button } from "react-bootstrap";
 
-function HomePage({ userName, setUserName, handleRestart }) {
-  const [toDoList, setToDoList] = useState(() => {
-    const savedToDoList = localStorage.getItem("toDoList");
-    if (savedToDoList) {
-      return JSON.parse(savedToDoList);
-    } else {
-      return [];
-    }
-  });
+function HomePage({
+  userName,
+  setUserName,
+  addUser,
+  userArr,
+  toDoList,
+  setToDoList,
+  setIsIntro,
+}) {
   const [time, setTime] = useState(moment().format("DD/MM/YYYY, h:mm:ss a"));
-  const [nameModalShow, setNameModalShow] = useState(false);
+  const [settingsModalShow, setSettingsModalShow] = useState(false);
   const [editedUserName, setEditedUserName] = useState("");
+  const [changeUser, setChangeUser] = useState(false);
+  const [selectedUser, setSelectedUser] = useState("");
 
   useEffect(() => {
-    localStorage.setItem("toDoList", JSON.stringify(toDoList));
-  }, [toDoList]);
+    if (userName !== "") {
+      localStorage.setItem(userName, JSON.stringify(toDoList));
+    }
+  }, [userName, toDoList]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,30 +34,72 @@ function HomePage({ userName, setUserName, handleRestart }) {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (selectedUser) {
+      const savedToDoList = localStorage.getItem(selectedUser);
+      if (savedToDoList) {
+        setToDoList(JSON.parse(savedToDoList));
+      }
+    }
+  }, [selectedUser, setToDoList]);
+
   const handleNameChange = () => {
-    setNameModalShow(true);
-    setUserName(editedUserName);
+    if (userArr.includes(editedUserName)) {
+      alert("This username exists! Please choose another name.");
+    } else {
+      localStorage.removeItem(userName);
+      setSettingsModalShow(true);
+      setUserName(editedUserName);
+    }
+  };
+
+  const handleUserChange = () => {
+    setChangeUser(false);
+    setUserName(selectedUser);
+    setToDoList(JSON.parse(localStorage.getItem(selectedUser)));
+  };
+
+  const deleteUser = () => {
+    //FIXME: cannot delete first user?
+    localStorage.removeItem(userName);
+    setUserName(userArr[0]);
+    setToDoList(JSON.parse(localStorage.getItem(userArr[0])));
   };
 
   return (
     <div className="homepage">
       <div className="intro">
         <h5>Let's get down to business, </h5>
-        <h2 className="username" onClick={() => setNameModalShow(true)}>
+        <h2>
           <em>{userName}</em>
         </h2>
-        <EditNameModal
-          show={nameModalShow}
-          onHide={() => setNameModalShow(false)}
+        <SettingsModal
+          show={settingsModalShow}
+          onHide={() => setSettingsModalShow(false)}
           editedUserName={editedUserName}
           setEditedUserName={setEditedUserName}
           handleNameChange={handleNameChange}
           userName={userName}
+          changeUser={changeUser}
+          setChangeUser={setChangeUser}
+          selectedUser={selectedUser}
+          setSelectedUser={setSelectedUser}
+          handleUserChange={handleUserChange}
+          addUser={addUser}
+          deleteUser={deleteUser}
+          userArr={userArr}
         />
       </div>
       <p>{time}</p>
       <CreateToDo setToDoList={setToDoList} toDoList={toDoList} />
       <ShowToDo setToDoList={setToDoList} toDoList={toDoList} />
+      <Button
+        className="setting"
+        variant="secondary"
+        onClick={() => setSettingsModalShow(true)}
+      >
+        Settings
+      </Button>
     </div>
   );
 }

@@ -1,10 +1,22 @@
+import { useState } from "react";
+
 function WelcomeScreen({ setUserName, setIsIntro }) {
-  function handleUserName(e) {
+  const [userInput, setUserInput] = useState("");
+  const handleUserName = (e) => {
+    setUserInput(e.target.value);
+  };
+
+  const submitUserName = (e) => {
     if (e.key === "Enter") {
-      setUserName(e.target.value);
-      setIsIntro(false);
+      if (localStorage.getItem(userInput)) {
+        alert("User already exists. Please choose another username.");
+      } else {
+        setUserName(userInput);
+        setIsIntro(false);
+        setUserInput("");
+      }
     }
-  }
+  };
 
   return (
     <div className="welcome-screen">
@@ -15,7 +27,9 @@ function WelcomeScreen({ setUserName, setIsIntro }) {
           className="fs-1 input-name"
           aria-label="Username"
           aria-describedby="basic-addon1"
-          onKeyDown={handleUserName}
+          onChange={handleUserName}
+          onKeyDown={submitUserName}
+          value={userInput}
           required
           autoFocus
         ></input>

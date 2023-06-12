@@ -17,9 +17,39 @@ function App() {
     }
   });
 
+  const [toDoList, setToDoList] = useState(() => {
+    const savedToDoList = localStorage.getItem(userName);
+    if (savedToDoList) {
+      return JSON.parse(savedToDoList);
+    } else {
+      return [];
+    }
+  });
+
+  const [userArr, setUserArr] = useState([]);
+  useEffect(() => {
+    const initialUserArr = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      if (localStorage.key(i) !== "userName") {
+        initialUserArr.push(localStorage.key(i));
+      }
+    }
+    initialUserArr.sort((a, b) =>
+      a.toLowerCase().localeCompare(b.toLowerCase())
+    );
+    setUserArr(initialUserArr);
+  }, [userName]);
+  // dependency array is only for state
+
   useEffect(() => {
     localStorage.setItem("userName", JSON.stringify(userName));
   }, [userName]);
+
+  const addUser = () => {
+    setUserName("");
+    setToDoList([]);
+    setIsIntro(true);
+  };
 
   return (
     <div className="App">
@@ -34,7 +64,17 @@ function App() {
       </Fade>
       <Fade in={!isIntro} timeout={2000}>
         <div>
-          <HomePage key="home" userName={userName} setUserName={setUserName} />
+          <HomePage
+            key="home"
+            userName={userName}
+            setUserName={setUserName}
+            addUser={addUser}
+            userArr={userArr}
+            setUserArr={setUserArr}
+            toDoList={toDoList}
+            setToDoList={setToDoList}
+            setIsIntro={setIsIntro}
+          />
         </div>
       </Fade>
     </div>

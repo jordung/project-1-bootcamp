@@ -1,12 +1,12 @@
-import { Badge, Button, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import { useState } from "react";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import moment from "moment";
 import EditModal from "./EditModal";
+import ErrorIcon from "@mui/icons-material/Error";
 
 function ShowToDo({ setToDoList, toDoList }) {
-  //TODO: add to local storage
   const todayDate = moment().format("YYYY-MM-DD");
   const [modalShow, setModalShow] = useState(false);
   const [editedToDo, setEditedToDo] = useState({
@@ -93,9 +93,10 @@ function ShowToDo({ setToDoList, toDoList }) {
                   {item.complete === false &&
                   Date.parse(todayDate) >
                     Date.parse(moment(item.dueDate).format("YYYY-MM-DD")) ? (
-                    <Badge pill bg="danger">
-                      !
-                    </Badge>
+                    // <Badge pill bg="danger">
+                    //   !
+                    // </Badge>
+                    <ErrorIcon style={{ color: "red", fontSize: "1.5em" }} />
                   ) : null}
                 </td>
                 <td

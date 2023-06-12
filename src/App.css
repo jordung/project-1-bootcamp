@@ -3,12 +3,12 @@
 body {
   margin: 0;
   font-family: "Poppins";
+  background-color: #001220;
 }
 
 .App {
   text-align: center;
   color: white;
-  background-color: #001220;
 }
 
 .welcome-screen {
@@ -40,10 +40,6 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.username {
-  cursor: pointer;
 }
 
 h1,
@@ -88,7 +84,7 @@ td {
 }
 
 .table-checkbox {
-  width: 20px;
+  width: 15%;
   vertical-align: middle;
 }
 
@@ -98,7 +94,7 @@ td {
 }
 
 .table-buttons {
-  width: 100px;
+  width: 15%;
   text-align: center;
   vertical-align: middle;
 }
@@ -133,24 +129,44 @@ input[type="checkbox"] {
   height: 0.8em !important;
 }
 
-.modal-button {
-  width: 30%;
-  margin: 0 5px 10px 5px;
-}
-
-.modal-button-list {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .form-field {
   font-size: 0.9em;
 }
 
+.setting {
+  margin-top: 5px;
+  width: 75%;
+  color: #ffffff;
+  padding: 5px 10px;
+}
+
+.settings-modal {
+  display: flex;
+  align-items: center;
+}
+
+.settings-button {
+  font-size: 0.8em;
+  width: 100%;
+  margin-top: 0.5em;
+}
+
+.modal-button {
+  font-size: 0.8em;
+}
+
+.active-user {
+  background-color: #333333;
+  color: #fff;
+  border: none;
+  pointer-events: none;
+}
+
 @media screen and (min-width: 767px) {
-  table {
-    font-size: 1em;
+  table,
+  .settings-button,
+  .modal-button {
+    font-size: 0.9em;
   }
 
   .checkbox {
@@ -159,10 +175,11 @@ input[type="checkbox"] {
   }
 
   .form-field {
-    font-size: 1em;
+    font-size: 0.9em;
   }
 
   .table-checkbox {
-    width: 50px;
+    width: 10%;
+    text-align: left;
   }
 }
