@@ -5,6 +5,9 @@ import { Fade } from "@mui/material";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+// useRef is like a special labeller in React that helps us remember elements/values so that we can easily find and work with them later
+// useEffect is to do something whenever a specific event/change happens (based on dependency array)
+
 function App() {
   const [isIntro, setIsIntro] = useState(true);
   const [userName, setUserName] = useState(() => {
@@ -27,6 +30,7 @@ function App() {
   });
 
   const [userArr, setUserArr] = useState([]);
+
   useEffect(() => {
     const initialUserArr = [];
     for (let i = 0; i < localStorage.length; i++) {

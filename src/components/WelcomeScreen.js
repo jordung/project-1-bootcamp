@@ -2,6 +2,7 @@ import { useState } from "react";
 
 function WelcomeScreen({ setUserName, setIsIntro }) {
   const [userInput, setUserInput] = useState("");
+
   const handleUserName = (e) => {
     setUserInput(e.target.value);
   };

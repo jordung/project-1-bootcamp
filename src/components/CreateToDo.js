@@ -14,6 +14,7 @@ function CreateToDo({ setToDoList, toDoList }) {
   const todayDate = moment().format("YYYY-MM-DD");
 
   const formRef = useRef(null);
+  const inputRef = useRef(null);
 
   const handleReset = () => {
     formRef.current.reset();
@@ -29,6 +30,7 @@ function CreateToDo({ setToDoList, toDoList }) {
       complete: false,
     });
     handleReset();
+    inputRef.current.focus();
   };
 
   const handleItemChange = (event) => {
@@ -55,7 +57,12 @@ function CreateToDo({ setToDoList, toDoList }) {
           name="item"
           label="What do you want to do today?"
         >
-          <Form.Control className="form-field" required type="text" />
+          <Form.Control
+            className="form-field"
+            required
+            type="text"
+            ref={inputRef}
+          />
         </FloatingLabel>
       </Form.Group>
       <FloatingLabel

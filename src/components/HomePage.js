@@ -20,12 +20,14 @@ function HomePage({
   const [changeUser, setChangeUser] = useState(false);
   const [selectedUser, setSelectedUser] = useState("");
 
+  // Setting userName & toDoList to localStorage
   useEffect(() => {
     if (userName !== "") {
       localStorage.setItem(userName, JSON.stringify(toDoList));
     }
   }, [userName, toDoList]);
 
+  // Updating time on Homepage
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(moment().format("DD/MM/YYYY, h:mm:ss a"));
@@ -34,6 +36,7 @@ function HomePage({
     return () => clearInterval(interval);
   }, []);
 
+  // setting toDoList when switching users
   useEffect(() => {
     if (selectedUser) {
       const savedToDoList = localStorage.getItem(selectedUser);
@@ -43,6 +46,7 @@ function HomePage({
     }
   }, [selectedUser, setToDoList]);
 
+  // error checking + setting userName when editing userName
   const handleNameChange = () => {
     if (userArr.includes(editedUserName)) {
       alert("This username exists! Please choose another name.");
@@ -59,11 +63,17 @@ function HomePage({
     setToDoList(JSON.parse(localStorage.getItem(selectedUser)));
   };
 
+  // setting to 1st user when any user is deleted - if 1st user not available, set to WelcomeScreen
   const deleteUser = () => {
-    //FIXME: cannot delete first user?
     localStorage.removeItem(userName);
-    setUserName(userArr[0]);
-    setToDoList(JSON.parse(localStorage.getItem(userArr[0])));
+    if (userArr.length > 1) {
+      setUserName(userArr[0]);
+      setToDoList(JSON.parse(localStorage.getItem(userArr[0])));
+    } else {
+      setUserName("");
+      setToDoList([]);
+      setIsIntro(true);
+    }
   };
 
   return (

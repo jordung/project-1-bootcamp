@@ -64,82 +64,86 @@ function ShowToDo({ setToDoList, toDoList }) {
           </tr>
         </thead>
         <tbody>
-          {toDoList
-            .sort((a, b) => {
-              if (a.complete && !b.complete) return 1;
-              if (!a.complete && b.complete) return -1;
-              return 0;
-            })
-            .sort((a, b) => {
-              return (
-                Date.parse(moment(a.dueDate).format("YYYY-MM-DD")) -
-                Date.parse(moment(b.dueDate).format("YYYY-MM-DD"))
-              );
-            })
-            .sort((a, b) => {
-              if (a.complete && !b.complete) return 1;
-              if (!a.complete && b.complete) return -1;
-              return 0;
-            })
-            .map((item) => (
-              <tr key={item.id}>
-                <td className="checkbox-badge table-checkbox">
-                  <input
-                    type="checkbox"
-                    className="checkbox"
-                    checked={item.complete}
-                    onChange={() => handleChange(item.id)}
-                  />
-                  {item.complete === false &&
-                  Date.parse(todayDate) >
-                    Date.parse(moment(item.dueDate).format("YYYY-MM-DD")) ? (
-                    // <Badge pill bg="danger">
-                    //   !
-                    // </Badge>
-                    <ErrorIcon style={{ color: "red", fontSize: "1.5em" }} />
-                  ) : null}
-                </td>
-                <td
-                  className={
-                    item.complete
-                      ? "text-decoration-line-through table-content"
-                      : "table-content"
-                  }
-                >
-                  {item.item}
-                </td>
-                <td
-                  className={
-                    item.complete
-                      ? "text-decoration-line-through table-content"
-                      : "table-content"
-                  }
-                >
-                  {moment(item.dueDate).format("DD/MM/YYYY")}
-                </td>
-                <td className="table-buttons">
-                  <Button variant="light" size="sm" className="px-1 p-0 m-0">
-                    <ModeEditOutlineOutlinedIcon
-                      className="delete-button"
-                      onClick={() => handleEdit(item)}
+          {toDoList ? (
+            toDoList
+              .sort((a, b) => {
+                if (a.complete && !b.complete) return 1;
+                if (!a.complete && b.complete) return -1;
+                return 0;
+              })
+              .sort((a, b) => {
+                return (
+                  Date.parse(moment(a.dueDate).format("YYYY-MM-DD")) -
+                  Date.parse(moment(b.dueDate).format("YYYY-MM-DD"))
+                );
+              })
+              .sort((a, b) => {
+                if (a.complete && !b.complete) return 1;
+                if (!a.complete && b.complete) return -1;
+                return 0;
+              })
+              .map((item) => (
+                <tr key={item.id}>
+                  <td className="checkbox-badge table-checkbox">
+                    <input
+                      type="checkbox"
+                      className="checkbox"
+                      checked={item.complete}
+                      onChange={() => handleChange(item.id)}
                     />
-                  </Button>
-                  <Button variant="light" size="sm" className="px-1 p-0 m-0">
-                    <DeleteOutlineOutlinedIcon
-                      className="delete-button"
-                      onClick={() => handleDelete(item.id)}
+                    {item.complete === false &&
+                    Date.parse(todayDate) >
+                      Date.parse(moment(item.dueDate).format("YYYY-MM-DD")) ? (
+                      // <Badge pill bg="danger">
+                      //   !
+                      // </Badge>
+                      <ErrorIcon style={{ color: "red", fontSize: "1.5em" }} />
+                    ) : null}
+                  </td>
+                  <td
+                    className={
+                      item.complete
+                        ? "text-decoration-line-through table-content"
+                        : "table-content"
+                    }
+                  >
+                    {item.item}
+                  </td>
+                  <td
+                    className={
+                      item.complete
+                        ? "text-decoration-line-through table-content"
+                        : "table-content"
+                    }
+                  >
+                    {moment(item.dueDate).format("DD/MM/YYYY")}
+                  </td>
+                  <td className="table-buttons">
+                    <Button variant="light" size="sm" className="px-1 p-0 m-0">
+                      <ModeEditOutlineOutlinedIcon
+                        className="delete-button"
+                        onClick={() => handleEdit(item)}
+                      />
+                    </Button>
+                    <Button variant="light" size="sm" className="px-1 p-0 m-0">
+                      <DeleteOutlineOutlinedIcon
+                        className="delete-button"
+                        onClick={() => handleDelete(item.id)}
+                      />
+                    </Button>
+                    <EditModal
+                      show={modalShow && editedToDo.id === item.id}
+                      onHide={() => setModalShow(false)}
+                      editedToDo={editedToDo}
+                      setEditedToDo={setEditedToDo}
+                      handleEdit={handleEdit}
                     />
-                  </Button>
-                  <EditModal
-                    show={modalShow && editedToDo.id === item.id}
-                    onHide={() => setModalShow(false)}
-                    editedToDo={editedToDo}
-                    setEditedToDo={setEditedToDo}
-                    handleEdit={handleEdit}
-                  />
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))
+          ) : (
+            <></>
+          )}
         </tbody>
       </Table>
     </div>
