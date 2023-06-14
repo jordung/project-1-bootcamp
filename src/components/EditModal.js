@@ -5,7 +5,6 @@ import moment from "moment";
 
 function EditModal({ show, onHide, editedToDo, setEditedToDo, handleEdit }) {
   const todayDate = moment().format("YYYY-MM-DD");
-  //   console.log(editedToDo);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -71,16 +70,12 @@ function EditModal({ show, onHide, editedToDo, setEditedToDo, handleEdit }) {
             />
           </FloatingLabel>
           <div className="modal-button-list">
-            <Button
-              className="modal-button form-field"
-              variant="dark"
-              type="submit"
-            >
-              Submit
+            <Button className="settings-button" variant="dark" type="submit">
+              Confirm
             </Button>
             <Button
-              className="modal-button form-field"
-              variant="outline-danger"
+              className="settings-button"
+              variant="outline-secondary"
               onClick={onHide}
             >
               Close

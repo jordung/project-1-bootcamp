@@ -66,9 +66,15 @@ function HomePage({
   // setting to 1st user when any user is deleted - if 1st user not available, set to WelcomeScreen
   const deleteUser = () => {
     localStorage.removeItem(userName);
+
     if (userArr.length > 1) {
-      setUserName(userArr[0]);
-      setToDoList(JSON.parse(localStorage.getItem(userArr[0])));
+      if (userName === userArr[0]) {
+        setUserName(userArr[1]);
+        setToDoList(JSON.parse(localStorage.getItem(userArr[1])));
+      } else {
+        setUserName(userArr[0]);
+        setToDoList(JSON.parse(localStorage.getItem(userArr[0])));
+      }
     } else {
       setUserName("");
       setToDoList([]);
