@@ -12,6 +12,7 @@ body {
 }
 
 .welcome-screen {
+  height: 100vh;
   min-height: 100vh;
   min-width: 100vw;
   position: absolute;
@@ -36,6 +37,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
+  min-height: 100vh;
+  min-width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
