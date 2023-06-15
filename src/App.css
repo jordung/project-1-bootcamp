@@ -168,6 +168,10 @@ input[type="checkbox"] {
 }
 
 @media screen and (min-width: 767px) {
+  .input-name {
+    margin: 10px 0;
+  }
+
   table,
   .settings-button,
   .modal-button {
