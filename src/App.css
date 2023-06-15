@@ -13,7 +13,7 @@ body {
 
 .welcome-screen {
   height: 100vh;
-  min-height: 100vh;
+  max-height: -webkit-fill-available;
   width: 100vw;
   min-width: 100vw;
   position: absolute;
@@ -38,7 +38,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   height: 100vh;
-  min-height: 100vh;
+  max-height: -webkit-fill-available;
   width: 100vw;
   min-width: 100vw;
   display: flex;
@@ -169,8 +169,8 @@ input[type="checkbox"] {
 }
 
 @media screen and (min-width: 767px) {
-  .input-name ::before {
-    width: 100%;
+  .input-name {
+    width: 35%;
     margin: 10px;
   }
 
