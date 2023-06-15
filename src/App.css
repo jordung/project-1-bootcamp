@@ -4,7 +4,8 @@ body {
   margin: 0;
   font-family: "Poppins";
   background-color: #001220;
-  width: 100vw;
+  padding: 0;
+  width: 100%;
 }
 
 .App {
